@@ -43,7 +43,7 @@ let writeSurrogate (developer : Developer) =
     writeUsing (fun stream ->
 
         let surrogate = Surrogate.get ()
-        let serialiser = DataContractSerializer (typeof<Developer>, Seq.empty, Int32.MaxValue, false, true, surrogate)
+        let serialiser = DataContractSerializer (typeof<Developer>, Seq.empty, Int32.MaxValue, true, false, surrogate)
         serialiser.WriteObject (stream, developer)
 
         stream
@@ -53,7 +53,7 @@ let readSurrogate xml =
     readUsing xml (fun stream ->
 
         let surrogate = Surrogate.get ()
-        let serialiser = DataContractSerializer (typeof<Developer>, Seq.empty, Int32.MaxValue, false, true, surrogate)
+        let serialiser = DataContractSerializer (typeof<Developer>, Seq.empty, Int32.MaxValue, true, false, surrogate)
         serialiser.ReadObject (stream) :?> Developer
 
     )
@@ -62,7 +62,7 @@ let writeTransform (developer : Developer) =
     writeUsing (fun stream ->
 
         let surrogate = Surrogate.get ()
-        let serialiser = DataContractSerializer (typeof<Developer>, Seq.empty, Int32.MaxValue, false, true, surrogate)
+        let serialiser = DataContractSerializer (typeof<Developer>, Seq.empty, Int32.MaxValue, true, false, surrogate)
         serialiser.WriteObject (stream, developer)
 
         CleanUp.apply stream
